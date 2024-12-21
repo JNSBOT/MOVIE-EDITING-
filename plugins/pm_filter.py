@@ -710,20 +710,22 @@ async def auto_filter(client, msg, spoll=False):
         cap = f"Here is what i found for your query {search}"
     if imdb and imdb.get('poster'):
         try:
-            await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
+            fmsg = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
                                       reply_markup=InlineKeyboardMarkup(btn))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
             poster = pic.replace('.jpg', "._V1_UX360.jpg")
-            await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(btn))
+            fmsg = await message.reply_photo(photo=poster, caption=cap[:1024], reply_markup=InlineKeyboardMarkup(btn))
         except Exception as e:
             logger.exception(e)
-            await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
+            fmsg = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
     else:
-        await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
+        fmsg = await message.reply_text(cap, reply_markup=InlineKeyboardMarkup(btn))
     if spoll:
         await msg.message.delete()
-
+    await asyncio.sleep(DELETE_TIMEOUT)
+    await fmsg.delete()
+    await msg.delete()
 
 async def advantage_spell_chok(msg):
     query = re.sub(
@@ -775,8 +777,16 @@ async def advantage_spell_chok(msg):
         )
     ] for k, movie in enumerate(movielist)]
     btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("I couldn't find anything related to that\nDid you mean any one of these?",
+    zz = await msg.reply(' I couldnt find anything related to that, just a sec looking for IMDB suggestions  🧐')
+    await asyncio.sleep(3)
+    zz1 = await zz.edit("Did you mean any one of these?  🤓",
                     reply_markup=InlineKeyboardMarkup(btn))
+    await asyncio.sleep(10)
+    zz2 = await zz1.edit('check Whether it is released or not in OTT/ Request as per format 👺')
+    
+    await asyncio.sleep(5)
+    await zz2.delete()
+    await msg.delete()
 
 
 async def manual_filters(client, message, text=False):
@@ -797,9 +807,11 @@ async def manual_filters(client, message, text=False):
                     if fileid == "None":
                         if btn == "[]":
                             await client.send_message(group_id, reply_text, disable_web_page_preview=True)
+                            fmsg = await client.send_message(group_id, reply_text, disable_web_page_preview=True) 
                         else:
                             button = eval(btn)
                             await client.send_message(
+                            fmsg = await client.send_message(
                                 group_id,
                                 reply_text,
                                 disable_web_page_preview=True,
@@ -808,6 +820,7 @@ async def manual_filters(client, message, text=False):
                             )
                     elif btn == "[]":
                         await client.send_cached_media(
+                        fmsg = await client.send_cached_media(
                             group_id,
                             fileid,
                             caption=reply_text or "",
@@ -816,11 +829,16 @@ async def manual_filters(client, message, text=False):
                     else:
                         button = eval(btn)
                         await message.reply_cached_media(
+                        fmsg = await message.reply_cached_media(
                             fileid,
                             caption=reply_text or "",
                             reply_markup=InlineKeyboardMarkup(button),
                             reply_to_message_id=reply_id
                         )
+                    await asyncio.sleep(DELETE_TIMEOUT)
+                    await fmsg.delete()
+                    await msg.delete()
+                        
                 except Exception as e:
                     logger.exception(e)
                 break
