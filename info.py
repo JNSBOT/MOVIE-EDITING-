@@ -24,7 +24,7 @@ USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
 PICS = (environ.get('PICS', 'https://telegra.ph/file/0e9b4a6e8d50b39c2a207.jpg https://telegra.ph/file/045eab7f66c7d236f908d.jpg')).split()
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5793708681 5531461861').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '342136008 5531461861').split()]
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1001833247384').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
@@ -43,22 +43,24 @@ AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_chan
 REQ_CHANNEL=environ.get("REQ_CHANNEL", None)
 REQ_CHANNEL = (int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL) else False) if REQ_CHANNEL is not None else None
 JOIN_REQS_DB = environ.get("JOIN_REQS_DB", DATABASE_URI)
-DELETE_TIMEOUT = int(environ.get('DELETE_TIMEOUT', 2*60*60)) # 2 hours in seconds
+DELETE_TIMEOUT = int(environ.get('DELETE_TIMEOUT', 300))
 
 # Others
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1001869718840))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'CINEMAHUB_NEW_MOVIES')
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "False")), False)
 IMDB = is_enabled((environ.get('IMDB', "False")), False)
-SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "False")), False)
-CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", """<b>📂Fɪʟᴇɴᴀᴍᴇ : {file_name}</b>
+SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
+CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", """<b>📂Fɪʟᴇɴᴀᴍᴇ : {file_name}
 
-╔════ ᴊᴏɪɴ ᴡɪᴛʜ ᴜs ════╗
-<a href=t.me/+b7rSipdVyeE0MWNl>▫️ ᴄʜᴀɴɴᴇʟ </a>
-<a href=t.me/film_cube_group_main>▫️ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ 1</a>
-<a href=t.me/filmcube_group>▫️ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ 2</a>
-<a href=t.me/filmcubee_group>▫️ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ 3 </a>
-╚════ ᴊᴏɪɴ ᴡɪᴛʜ ᴜs ════╝""") 
+╔════ ᴊᴏɪɴ ᴡɪᴛʜ ᴜs ═════╗
+♻️ 𝙅𝙊𝙄𝙉 :- @JNS_BOTS  ❤️‍🔥    ♻️
+♻️ 𝙅𝙊𝙄𝙉 :- @JNS_MOVIES ❤️‍🩹  ♻️
+╚══╦═ ᴊᴏɪɴ ᴡɪᴛʜ ᴜs ═════╝
+╭══╩══╮                 ╭═════╮
+╏ ᶜʰᵃⁿⁿᵉˡ¹╠══════╣ᶜʰᵃⁿⁿᵉˡ ² ┃              
+╰═════╯                 ╰═════╯
+</b> """) 
 
 
 
