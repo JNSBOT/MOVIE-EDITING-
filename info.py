@@ -53,13 +53,12 @@ IMDB = is_enabled((environ.get('IMDB', "False")), False)
 SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", """<b>📂Fɪʟᴇɴᴀᴍᴇ : {file_name}
 
+
 ╔════ ᴊᴏɪɴ ᴡɪᴛʜ ᴜs ═════╗
 ♻️ 𝙅𝙊𝙄𝙉 :- @JNS_BOTS  ❤️‍🔥    ♻️
 ♻️ 𝙅𝙊𝙄𝙉 :- @JNS_MOVIES ❤️‍🩹  ♻️
 ╚══╦═ ᴊᴏɪɴ ᴡɪᴛʜ ᴜs ═════╝
-╭══╩══╮                 ╭═════╮
-╏ ᶜʰᵃⁿⁿᵉˡ¹╠══════╣ᶜʰᵃⁿⁿᵉˡ ² ┃              
-╰═════╯                 ╰═════╯
+
 </b> """) 
 
 
